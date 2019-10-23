@@ -16,6 +16,7 @@
 		926BAE482356E512004C80D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 926BAE462356E512004C80D1 /* LaunchScreen.storyboard */; };
 		926BAE532356E512004C80D1 /* WordCollectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926BAE522356E512004C80D1 /* WordCollectorTests.swift */; };
 		926BAE5E2356E512004C80D1 /* WordCollectorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926BAE5D2356E512004C80D1 /* WordCollectorUITests.swift */; };
+		929CB6C0236071EF009CD16D /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929CB6BF236071EF009CD16D /* Session.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		926BAE592356E512004C80D1 /* WordCollectorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WordCollectorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		926BAE5D2356E512004C80D1 /* WordCollectorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordCollectorUITests.swift; sourceTree = "<group>"; };
 		926BAE5F2356E512004C80D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		929CB6BF236071EF009CD16D /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 				926BAE382356E510004C80D1 /* AppDelegate.swift */,
 				926BAE3A2356E510004C80D1 /* SceneDelegate.swift */,
 				926BAE3F2356E510004C80D1 /* ContentView.swift */,
+				929CB6BF236071EF009CD16D /* Session.swift */,
 				926BAE412356E512004C80D1 /* Assets.xcassets */,
 				926BAE462356E512004C80D1 /* LaunchScreen.storyboard */,
 				926BAE492356E512004C80D1 /* Info.plist */,
@@ -270,6 +273,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				929CB6C0236071EF009CD16D /* Session.swift in Sources */,
 				926BAE3E2356E510004C80D1 /* WordCollector.xcdatamodeld in Sources */,
 				926BAE392356E510004C80D1 /* AppDelegate.swift in Sources */,
 				926BAE402356E510004C80D1 /* ContentView.swift in Sources */,
