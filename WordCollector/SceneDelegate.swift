@@ -24,11 +24,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Create the SwiftUI view and set the context as the value for the managedObjectContext environment keyPath.
         // Add `@Environment(\.managedObjectContext)` in the views that will need the context.
-        var userSession = Session()
-        userSession.words = testWords
-        let contentView = ContentView()
+        let words = [Word(name: "Abbrivate", level: .medium),
+        Word(name: "Segue", level: .easy),
+        Word(name: "Culdesac", level: .neverHeard),
+        Word(name: "Medium", level: .hard)]
+
+        let contentView = ContentView(words: words)
             .environment(\.managedObjectContext, context)
-            .environmentObject(userSession)
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {

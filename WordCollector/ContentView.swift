@@ -10,91 +10,148 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @EnvironmentObject var mobileSession: Session
-
+    @State var words: [Word]
+    @ObservedObject private var keyboard = KeyboardResponder()
     @State private var filterLayout = 0
     @State private var filterLevel = 3
     @State private var isEdit = false
     @State private var newWord = ""
-    @Environment(\.editMode) var mode
+    
     static var levels: [String] = {
         var temp = Level.allCases.map{ $0.rawValue }
         temp.append("A")
         return temp
     }()
     
-    var gridData: [[Word]]!
+    private var categorizedWord: [Word] {
+        
+        if filterLevel == Self.levels.endIndex - 1 {
+            return words
+        } else {
+            return words.filter { (word) -> Bool in
+                return word.level.rawValue == Self.levels[filterLevel]
+            }
+        }
+    }
     
+    private var layoutPicker: some View {
+        HStack {
+            Spacer(minLength: 100)
+            Picker("", selection: $filterLayout) {
+                Text("V").tag(0)
+                Text("H").tag(1)
+            }.pickerStyle(SegmentedPickerStyle())
+            Spacer(minLength: 100)
+        }
+        
+    }
+    
+    private var filterPicker: some View {
+        HStack {
+            Picker("", selection: $filterLevel) {
+                ForEach(0 ..< Self.levels.count) { index in
+                    Text(Self.levels[index])
+                        .tag(index)
+                }
+            }
+            .pickerStyle(SegmentedPickerStyle())
+            .padding(10)
+            
+        }
+    }
     var body: some View {
         NavigationView {
             VStack {
                 
                 HStack {
                     Spacer()
-                    Spacer()
-                    Picker("", selection: $filterLayout) {
-                        Text("V").tag(0)
-                        Text("H").tag(1)
-                    }.pickerStyle(SegmentedPickerStyle())
-                    Spacer()
-                    Spacer()
-                }
-                
-                HStack {
-                    Picker("", selection: $filterLevel) {
-                        ForEach(0 ..< Self.levels.count) { index in
-                            Text(Self.levels[index])
-                                .tag(index)
-                        }
+                    Toggle(isOn: $isEdit) {
+                        Text("Add")
+                        
                     }
-                    .pickerStyle(SegmentedPickerStyle())
-                    .padding(10)
-                    
-                    Spacer()
-                }
+                }.padding(10)
                 
+                
+                layoutPicker
+                filterPicker
                 
                 if filterLayout == 0 {
-                    List {
-                        ForEach(mobileSession.words) { word in
-                            WordRow(word: word)
-                        }.onDelete(perform: deleteWord)
-                        if isEdit {
-                            TextField("Beni editle", text: $newWord)
+                    listLayout
+                    
+                } else {
+                    gridLayout
+                }
+            }
+        }
+    }
+    
+    private var listLayout: some View {
+        List {
+            ForEach(categorizedWord) { word in
+                WordRow(word: word)
+            }
+            if isEdit {
+                HStack {
+                    TextField("Add new word", text: $newWord)
+                   
+                        HStack{
+                            ForEach (Level.allCases, id: \.self) { value in
+                              Text(value.rawValue)
+                                .font(.system(size: 9))
+                                .fontWeight(.black)
+                                .frame(width: 15, height: 20)
+                                .padding(4)
+                                .background(Color.gray)
+                                .clipShape(Circle())
+                                .foregroundColor(.white)
+                                .onTapGesture {
+                                    self.addAction(value)
+                                }
                         }
                     }
-                    .navigationBarTitle("Words")
-                    .navigationBarItems(trailing: EditButton())
                 }
-//                else {
-//                    ScrollView {
-//                        VStack {
-//                            ForEach(0 ..< gridData) { index in
-//                                HStack {
-//                                    Spacer()
-//                                    WordColumn(word: gridData[index][0])
-//                                    Spacer()
-//                                    Spacer()
-//                                    Spacer()
-//                                    WordColumn(word: gridData[index][1])
-//                                    Spacer()
-//                                }
-//                            }.onDelete(perform: deleteWord)
-//                                .padding(20)
-//                        }
-//                    }
-//                    .padding(20)
-//                    .navigationBarTitle("Words")
-//                    .navigationBarItems(trailing: EditButton())
-//
-//                }
             }
+        }
+        .padding(.bottom, keyboard.currentHeight + 60)
+        .navigationBarTitle("Words")
+    }
+    
+    private var gridLayout: some View {
+        ScrollView {
+            VStack {
+                ForEach(categorizedWord.chunked(into: 2), id: \.self) { row in
+                    HStack {
+                        
+                        ForEach(row) { temp in
+                            
+                            Spacer()
+                            WordColumn(word: temp)
+                            Spacer()
+                            
+                        }
+                    }
+                }
+                .padding(20)
+            }
+        }
+        .padding(20)
+        .navigationBarTitle("Words")
+    }
+    
+    
+    
+    private func addAction(_ level: Level) {
+        if !newWord.isEmpty {
+            words.append(Word(name: newWord, level: level))
+            isEdit = false
+            newWord = ""
         }
     }
     
     func deleteWord(at offSets: IndexSet) {
         print("hello")
     }
+    
 }
 
 struct WordColumn: View {
@@ -108,14 +165,7 @@ struct WordColumn: View {
             Text(word.name)
             HStack {
                 ForEach (enumList, id: \.self) { value in
-                    Text(value.rawValue)
-                        .font(.system(size: 9))
-                        .fontWeight(.black)
-                        .frame(width: self.calculateFont(value), height: 20)
-                        .padding(4)
-                        .background(value == self.word.level ? self.word.level.getColor() : Color.gray)
-                        .clipShape(Circle())
-                        .foregroundColor(.white)
+                    Text(value.rawValue) .font(.system(size: 9)).fontWeight(.black).frame(width: self.calculateFont(value), height: 20).padding(4).background(value == self.word.level ? self.word.level.getColor() : Color.gray).clipShape(Circle()).foregroundColor(.white)
                 }
             }
         }
@@ -166,23 +216,17 @@ struct WordRow: View {
 }
 
 struct ContentView_Previews: PreviewProvider {
-    static let userSession = Session()
+    
     static var previews: some View {
-       
-        ContentView().environmentObject(userSession)
+        ContentView(words: testWords)
     }
 }
 
 
-struct Word: Identifiable {
+struct Word: Identifiable, Hashable {
     let id = UUID()
     let name: String
     let level: Level
-    
-//    init(name: String, level: Level) {
-//        self.name = name
-//        self.level = level
-//    }
 }
 
 enum Level: String, CaseIterable {
@@ -210,9 +254,9 @@ extension Level {
 
 #if DEBUG
 let testWords: [Word] = [Word(name: "Abbrivate", level: .medium),
-                        Word(name: "Segue", level: .easy),
-                        Word(name: "Man", level: .neverHeard),
-                        Word(name: "Medium", level: .hard)]
+                         Word(name: "Segue", level: .easy),
+                         Word(name: "Culdesac", level: .neverHeard),
+                         Word(name: "Medium", level: .hard)]
 #endif
 
 

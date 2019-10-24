@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		921A274623619E42003AA964 /* ContentViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921A274523619E42003AA964 /* ContentViewTest.swift */; };
+		9224EF0E2361BCE4001C1BB3 /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9224EF0D2361BCE4001C1BB3 /* KeyboardResponder.swift */; };
 		926BAE392356E510004C80D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926BAE382356E510004C80D1 /* AppDelegate.swift */; };
 		926BAE3B2356E510004C80D1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926BAE3A2356E510004C80D1 /* SceneDelegate.swift */; };
 		926BAE3E2356E510004C80D1 /* WordCollector.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 926BAE3C2356E510004C80D1 /* WordCollector.xcdatamodeld */; };
@@ -37,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		921A274523619E42003AA964 /* ContentViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewTest.swift; sourceTree = "<group>"; };
+		9224EF0D2361BCE4001C1BB3 /* KeyboardResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardResponder.swift; sourceTree = "<group>"; };
 		926BAE352356E510004C80D1 /* WordCollector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordCollector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		926BAE382356E510004C80D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		926BAE3A2356E510004C80D1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -106,12 +110,14 @@
 				926BAE382356E510004C80D1 /* AppDelegate.swift */,
 				926BAE3A2356E510004C80D1 /* SceneDelegate.swift */,
 				926BAE3F2356E510004C80D1 /* ContentView.swift */,
+				921A274523619E42003AA964 /* ContentViewTest.swift */,
 				929CB6BF236071EF009CD16D /* Session.swift */,
 				926BAE412356E512004C80D1 /* Assets.xcassets */,
 				926BAE462356E512004C80D1 /* LaunchScreen.storyboard */,
 				926BAE492356E512004C80D1 /* Info.plist */,
 				926BAE3C2356E510004C80D1 /* WordCollector.xcdatamodeld */,
 				926BAE432356E512004C80D1 /* Preview Content */,
+				9224EF0D2361BCE4001C1BB3 /* KeyboardResponder.swift */,
 			);
 			path = WordCollector;
 			sourceTree = "<group>";
@@ -275,8 +281,10 @@
 			files = (
 				929CB6C0236071EF009CD16D /* Session.swift in Sources */,
 				926BAE3E2356E510004C80D1 /* WordCollector.xcdatamodeld in Sources */,
+				9224EF0E2361BCE4001C1BB3 /* KeyboardResponder.swift in Sources */,
 				926BAE392356E510004C80D1 /* AppDelegate.swift in Sources */,
 				926BAE402356E510004C80D1 /* ContentView.swift in Sources */,
+				921A274623619E42003AA964 /* ContentViewTest.swift in Sources */,
 				926BAE3B2356E510004C80D1 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

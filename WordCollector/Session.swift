@@ -8,8 +8,3 @@
 
 import Foundation
 
-
-class Session: ObservableObject {
-    @Published var words = [Word]()
-    
-}
